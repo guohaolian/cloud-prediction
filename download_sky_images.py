@@ -4,6 +4,7 @@ import time
 import sys
 import pytz
 import socket
+import os
 
 
 # Image Retrieval
@@ -88,7 +89,10 @@ def download_sky_camera_images(start_time_string,
 def retry_retrieve(request_url, output_path):
     retry_count = 0
     retry_max = 5
-    
+
+    # Ensure parent directory exists before writing files.
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
     print(output_path)
     while retry_count < retry_max:
         try:
@@ -115,11 +119,17 @@ def retry_retrieve(request_url, output_path):
 
 # Expects date format of YYYY-MM-DD as command line args 
 def main(argv):
+    if len(argv) < 2:
+        script_name = sys.argv[0] if sys.argv else "download_sky_images.py"
+        print("Usage: python {0} <start YYYY-MM-DD> <end YYYY-MM-DD>".format(script_name))
+        return 2
+
     start = argv[0]
     end = argv[1]
     download_sky_camera_images(start, end)
+    return 0
 
 # Standard boilerplate to call the main() function to begin 
 # the program.
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    sys.exit(main(sys.argv[1:]))
