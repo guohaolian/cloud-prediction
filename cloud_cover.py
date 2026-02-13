@@ -10,7 +10,7 @@ from skimage import draw, io
 
 def main():
 
-    sky_trimmed = load_and_trim('/Users/guohaolian/Documents/solar/Gold-Tree-Cloud-Prediction/Data/test_sky_camera_images/2019-05-21-09-35-0.jpg')
+    sky_trimmed = load_and_trim('sky_camera_images/2019-05-23-09-05-0.jpg')
     #sky_trimmed = load_and_trim('C:\\Users\\David\\Documents\\Research\\sky_camera_images\\2019-05-21-09-55-0.jpg')
     haze_index_im = process_image_haze_index(sky_trimmed)
     rb_ratio_im = process_image_rb_ratio(sky_trimmed)
